@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 
 class LoginController extends Controller
 {
@@ -12,24 +13,23 @@ class LoginController extends Controller
     {
         return view('auth.login');
     }
-    protected function authenticated(Request $request, $user)
-    {
-        if ($user->isAdmin()) {
-            return redirect()->route('dashboard'); // or ->intended(route('dashboard'))
-        }
-
-        return redirect()->route('home');
-    }
     public function login(Request $request)
     {
         $credentials = $request->validate([
             'email' => ['required', 'email'],
             'password' => ['required'],
         ]);
-
+        // Check if user is an admin
         if (Auth::attempt($credentials, $request->filled('remember'))) {
             $request->session()->regenerate();
-            return redirect()->intended('/')->with('success', 'Welcome back!');
+
+            $user = Auth::user();
+
+            if ($user && $user->isAdmin()) {  // Ensure $user is not null
+                return redirect()->route('dashboard')->with('success', 'Welcome back, Admin!');
+            }
+
+            return redirect()->route('home')->with('success', 'Welcome back!');
         }
 
         return back()->withErrors([
