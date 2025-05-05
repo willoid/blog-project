@@ -13,6 +13,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'is_admin',
     ];
     public function posts()
     {
@@ -26,6 +27,6 @@ class User extends Authenticatable
 
     public function isAdmin(): bool
     {
-        return $this->role === 'admin';
+        return $this->is_admin;
     }
 }

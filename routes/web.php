@@ -34,8 +34,7 @@ Route::get('/', [PostController::class, 'index'])->name('home');
 Route::get('posts', [PostController::class, 'index'])->name('posts.index');
 Route::get('/posts/{post}', [PostController::class, 'show'])->name('posts.show');
 
-
-//To do List
+//adminn routes
 Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::get('/', [AdminController::class, 'dashboard'])->name('dashboard');
 

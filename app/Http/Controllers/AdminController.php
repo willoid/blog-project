@@ -13,8 +13,7 @@ class AdminController extends Controller
     {
         $this->middleware(['auth', 'admin']);
     }
-
-    public function dashboard()
+     public function dashboard()
     {
         return view('admin.dashboard', [
             'userCount' => User::count(),
@@ -42,7 +41,7 @@ class AdminController extends Controller
     public function posts()
     {
         $posts = Post::with('user')->latest()->paginate(10);
-        return view('admin.posts', compact('posts'));
+        return view('posts.show', compact('posts'));
     }
 
     public function deletePost(Post $post)
