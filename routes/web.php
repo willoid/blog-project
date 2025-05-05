@@ -25,8 +25,14 @@ Route::middleware('auth')->group(function () {
 
 //To do List
 Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
-    Route::get('/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
-    Route::get('/users', [AdminController::class, 'users'])->name('admin.users');
-    Route::get('/posts', [AdminController::class, 'posts'])->name('admin.posts');
-    Route::delete('/users/{user}', [AdminController::class, 'destroy'])->name('admin.users.destroy');
+    Route::get('/', [AdminController::class, 'dashboard'])->name('dashboard');
+
+    Route::get('/users', [AdminController::class, 'users'])->name('users');
+    Route::delete('/users/{user}', [AdminController::class, 'deleteUser'])->name('users.delete');
+
+    Route::get('/posts', [AdminController::class, 'posts'])->name('posts');
+    Route::delete('/posts/{post}', [AdminController::class, 'deletePost'])->name('posts.delete');
+
+    Route::get('/comments', [AdminController::class, 'comments'])->name('comments');
+    Route::delete('/comments/{comment}', [AdminController::class, 'deleteComment'])->name('comments.delete');
 });
