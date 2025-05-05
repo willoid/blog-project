@@ -3,7 +3,7 @@
 @section('title', 'Manage Posts')
 
 @section('content')
-    <h1>All Posts</h1>
+    <h1>Admin Dashboard</h1>
     <ul>
         @foreach($posts as $post)
             <li>

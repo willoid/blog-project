@@ -28,11 +28,11 @@ Route::middleware('auth')->group(function () {
     //Route::get('/posts/{post}/comments');
     Route::post('/posts/{post}/comments', [CommentController::class, 'store'])->name('comments.store');
 });
+
 //Public routes
 Route::get('/', [PostController::class, 'index'])->name('home');
 Route::get('posts', [PostController::class, 'index'])->name('posts.index');
 Route::get('/posts/{post}', [PostController::class, 'show'])->name('posts.show');
-
 
 
 //To do List
