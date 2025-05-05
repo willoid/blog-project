@@ -11,6 +11,7 @@ use Illuminate\Auth\Access\AuthorizationException;
 class PostController extends Controller
 {
     public function index(){
+
         //$posts = Post::with('user', 'comments')->latest()->paginate(10);
         $posts = Post::with('user')->latest()->paginate(10);
 

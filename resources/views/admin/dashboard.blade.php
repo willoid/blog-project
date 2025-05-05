@@ -9,7 +9,7 @@
             <li>
                 {{ $post->title }} by {{ $post->user->name }}
 
-                <form action="{{ route('admin.posts.delete', $post) }}" method="POST" style="display:inline;">
+                <form action="{{ route('posts.delete', $post) }}" method="POST" style="display:inline;">
                     @csrf
                     @method('DELETE')
                     <button class="btn btn-danger btn-sm">Delete</button>
@@ -17,6 +17,4 @@
             </li>
         @endforeach
     </ul>
-
-    {{ $posts->links() }}
 @endsection

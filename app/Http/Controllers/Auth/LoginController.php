@@ -12,7 +12,14 @@ class LoginController extends Controller
     {
         return view('auth.login');
     }
+    protected function authenticated(Request $request, $user)
+    {
+        if ($user->isAdmin()) {
+            return redirect()->route('dashboard'); // or ->intended(route('dashboard'))
+        }
 
+        return redirect()->route('home');
+    }
     public function login(Request $request)
     {
         $credentials = $request->validate([

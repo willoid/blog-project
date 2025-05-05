@@ -9,16 +9,13 @@ use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware(['auth', 'admin']);
-    }
      public function dashboard()
     {
         return view('admin.dashboard', [
             'userCount' => User::count(),
             'postCount' => Post::count(),
             'commentCount' => Comment::count(),
+            'posts' => Post::with('user')->latest()->take(5)->get(), // Optional: recent 5 posts
         ]);
     }
 
