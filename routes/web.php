@@ -16,13 +16,7 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
 Route::post('/register', [RegisterController::class, 'register']);
 
-
-//Public routes
-Route::get('/', [PostController::class, 'index'])->name('home');
-Route::get('posts', [PostController::class, 'index'])->name('posts.index');
-Route::get('/posts/{post}', [PostController::class, 'show'])->name('posts.show');
-
-//Private routes
+//private routes - if i use the public ones first, the '/posts/{post}' overrides create and it shows a 404
 
 Route::middleware('auth')->group(function () {
     Route::get('/posts/create', [PostController::class, 'create'])->name('posts.create');
@@ -31,8 +25,15 @@ Route::middleware('auth')->group(function () {
     Route::put('/posts/{post}', [PostController::class, 'update'])->name('posts.update');
     Route::delete('/posts/{post}', [PostController::class, 'destroy'])->name('posts.destroy');
 
-    Route::get('/posts/{post}/comments');
+    //Route::get('/posts/{post}/comments');
+    Route::post('/posts/{post}/comments', [CommentController::class, 'store'])->name('comments.store');
 });
+//Public routes
+Route::get('/', [PostController::class, 'index'])->name('home');
+Route::get('posts', [PostController::class, 'index'])->name('posts.index');
+Route::get('/posts/{post}', [PostController::class, 'show'])->name('posts.show');
+
+
 
 //To do List
 Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {

@@ -35,19 +35,21 @@
             </div>
         @endforeach
         @auth
-            <div class="mt-4">
-                <h4>New Comment</h4>
-                <form action="{{ route('comments.store', $post) }}" method="POST">
-                    @csrf
-                    <div class="form-group mb-3">
-                        <textarea name="content" rows="3" class="form-control" required></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Send</button>
-                </form>
-            </div>
+            @if(auth()->id() !== $post->user_id)
+                <div class="mt-4">
+                    <h4>New Comment</h4>
+                    <form action="{{ route('comments.store', $post) }}" method="POST">
+                        @csrf
+                        <div class="form-group mb-3">
+                            <textarea name="content" rows="3" class="form-control" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Send</button>
+                    </form>
+                </div>
+            @endif
         @else
             <p class="mt-4">
-                <a href="{{ route('login') }}">Log in</a>, to write a comment.
+                <a href="{{ route('login') }}">Log in</a> to write a comment.
             </p>
         @endauth
     </section>
